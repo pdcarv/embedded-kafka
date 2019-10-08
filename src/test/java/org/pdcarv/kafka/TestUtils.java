@@ -1,4 +1,4 @@
-package org.pdcarv.embeddedkafka;
+package org.pdcarv.kafka;
 
 import java.io.File;
 import java.util.Properties;

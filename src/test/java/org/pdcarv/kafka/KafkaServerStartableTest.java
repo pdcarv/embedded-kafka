@@ -1,4 +1,4 @@
-package org.pdcarv.embeddedkafka;
+package org.pdcarv.kafka;
 
 import org.junit.Test;
 
@@ -6,8 +6,6 @@ import kafka.metrics.KafkaMetricsReporter;
 import kafka.server.KafkaConfig;
 import kafka.utils.VerifiableProperties;
 import scala.collection.Seq;
-
-import static org.junit.Assert.*;
 
 import java.util.Properties;
 

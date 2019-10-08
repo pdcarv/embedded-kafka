@@ -1,4 +1,4 @@
-package org.pdcarv.embeddedkafka;
+package org.pdcarv.kafka;
 
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
@@ -24,7 +24,8 @@ public class KafkaServerStartable
 
     public void startup() {
         try {
-            server.startup();
+            logger.info("Starting kafka server");
+            this.server.startup();
         } catch (Exception e) {
             logger.fatal("Unhandled Exception", e);
             Exit.exit(1, Option.empty());
@@ -33,7 +34,7 @@ public class KafkaServerStartable
 
     public void shutdown() {
         try {
-           server.shutdown(); 
+           this.server.shutdown(); 
         } catch (Exception e) {
             logger.fatal("Unhandled Exception", e);
             Exit.halt(1, Option.empty());
