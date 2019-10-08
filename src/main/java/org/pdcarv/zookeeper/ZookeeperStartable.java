@@ -1,9 +1,7 @@
-package org.pdcarv.embeddedzookeper;
+package org.pdcarv.zookeeper;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.server.ServerCnxnFactory;
 import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServer;
-import org.apache.zookeeper.server.persistence.FileTxnSnapLog;
+import org.apache.zookeeper.server.ZooKeeperServerMain;
 
 public class ZookeeperStartable {
     private ServerCnxnFactory cnxnFactory;
@@ -25,12 +23,11 @@ public class ZookeeperStartable {
         this.embeddedZooKeeperServer = new EmbeddedZooKeeperServer();
     }
 
-    protected void startup() {
+    public void startup() throws IOException {
         try {
-
             final CountDownLatch shutdownLatch = new CountDownLatch(1);
-            this.embeddedZooKeeperServer.build(config);
-            this.embeddedZooKeeperServer.registerServerShutdownHandler(
+            this.embeddedZooKeeperServer.configure(this.config);
+            this.embeddedZooKeeperServer.registerShutdownHandler(
                     EmbeddedZooKeeperServerShutdownHandler.create(shutdownLatch));
             ZooKeeperServer zkInstance = this.embeddedZooKeeperServer.getInstance();
 
@@ -50,7 +47,7 @@ public class ZookeeperStartable {
         }
     }
 
-    protected void shutdown() {
+    public void shutdown() {
         if (cnxnFactory != null) {
             this.cnxnFactory.shutdown();
         }

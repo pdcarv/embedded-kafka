@@ -1,4 +1,4 @@
-package org.pdcarv.embeddedzookeper;
+package org.pdcarv.zookeeper;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class EmbeddedZooKeeperServer {
         return this.server;
     }
 
-    public EmbeddedZooKeeperServer build(ServerConfig config) throws IOException {
+    public EmbeddedZooKeeperServer configure(ServerConfig config) throws IOException {
         FileTxnSnapLog txnLog = null;
 
         try {
@@ -45,11 +45,11 @@ public class EmbeddedZooKeeperServer {
         return this;
     }
 
-    public EmbeddedZooKeeperServer registerServerShutdownHandler(Object handler) {
-        String methodName = "registerShutdownHandler";
+    public EmbeddedZooKeeperServer registerShutdownHandler(Object handler) {
+        String methodName = "registerServerShutdownHandler";
 
         try {
-            Method registerServerhandler = ZooKeeperServer.class.getDeclaredMethod(methodName, (Class<?>[]) handler);
+            Method registerServerhandler = ZooKeeperServer.class.getDeclaredMethod(methodName, handler.getClass());
             registerServerhandler.setAccessible(true);
             registerServerhandler.invoke(this.server, handler);
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException

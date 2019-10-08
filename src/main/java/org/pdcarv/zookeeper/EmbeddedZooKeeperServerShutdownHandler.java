@@ -1,10 +1,8 @@
-package org.pdcarv.embeddedzookeper;
+package org.pdcarv.zookeeper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.CountDownLatch;
-
-import org.apache.zookeeper.server.ZooKeeperServer;
 
 class EmbeddedZooKeeperServerShutdownHandler {
     public static Object create(CountDownLatch countDownLatch) {
